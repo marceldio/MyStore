@@ -3,19 +3,25 @@ from django.forms import ModelForm
 from catalog.models import Product, Version
 
 
-class StyleForMixin:
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+# class StyleForMixin:
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#
+#         for field_name, field in self.fields.items():
+#             field.widget.attrs['class'] = 'form-control'
 
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
 
 
-
-class ProductForm(StyleForMixin, forms.ModelForm):
+class ProductModeratorForm(ModelForm):
     class Meta:
         model = Product
-        exclude = ('views_counter','owner')
+        fields = ('category', 'description', 'is_published')
+
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        exclude = ('views_counter','owner', 'is_published')
 
     # Список запрещенных слов
     forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно',
@@ -35,7 +41,7 @@ class ProductForm(StyleForMixin, forms.ModelForm):
         return description
 
 
-class VersionForm(StyleForMixin, forms.ModelForm):
+class VersionForm(forms.ModelForm):
     class Meta:
         model = Version
         fields = '__all__'

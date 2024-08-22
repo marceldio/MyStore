@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_task_catalog',
+        'NAME': 'my_store',
         'USER': 'postgres',
     }
 }
@@ -136,8 +136,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_HOST='smtp.yandex.ru'
 EMAIL_PORT=465
-EMAIL_HOST_USER='marceldio****@yandex.ru'
-EMAIL_HOST_PASSWORD='****************'
+EMAIL_HOST_USER='marceldiowork@yandex.ru'
+EMAIL_HOST_PASSWORD='ropurwyfbhotibth'
 EMAIL_USE_SSL=True
 
 SERVER_EMAIL = EMAIL_HOST_USER
@@ -147,3 +147,4 @@ AUTH_USER_MODEL = 'users.User'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/users/login'

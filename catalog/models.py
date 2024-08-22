@@ -1,5 +1,4 @@
 from django.db import models
-
 from users.models import User
 
 NULLABLE = {'blank': True, 'null': True}
@@ -56,7 +55,7 @@ class Product(models.Model):
     price = models.PositiveIntegerField(verbose_name="Цена за покупку")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Создано")
     updated_at = models.DateTimeField(auto_now_add=True, verbose_name="Обновлено")
-    is_published = models.BooleanField(default=True, verbose_name="Опубликовано")
+    is_published = models.BooleanField(default=False, verbose_name="Опубликовано")
     view_counter = models.PositiveIntegerField(
         default=0,
         verbose_name="Счетчик просмотров",
@@ -73,6 +72,10 @@ class Product(models.Model):
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
         ordering = ["product", "description", "category", "price"]
+        permissions = [
+            ("can_edit_category", "Can edit category"),
+            ("can_edit_description", "Can edit description"),
+            ("can_edit_is_published", "Can edit is_published")]
 
     def __str__(self):
         return f'{self.product}'

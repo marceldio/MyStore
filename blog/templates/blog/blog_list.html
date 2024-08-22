@@ -33,9 +33,9 @@
                                 <p>
                                     <a class="btn btn-primary" href="{% url 'blog:blog_detail' object.pk %}"
                                        role="button">Перейти</a>
-                                </p>
+
                                 {% if user.is_authenticated %}
-                                <p>
+
                                     <a class="btn btn-warning" href="{% url 'blog:blog_edit' object.pk %}"
                                        role="button">Редактировать</a>
                                     <a class="btn btn-danger" href="{% url 'blog:blog_delete' object.pk %}"
