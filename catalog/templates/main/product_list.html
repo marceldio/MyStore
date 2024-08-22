@@ -35,8 +35,7 @@
                                 <p>
                                     <a class="btn btn-primary" href="{% url 'catalog:product_view' object.pk %}"
                                        role="button">Перейти</a>
-
-                                    {% if perms.catalog.can_edit_category and perms.catalog.can_edit_description and perms.catalog.can_edit_is_published or user == object.owner %}
+                                {% if perms.catalog.change_product and perms.catalog.delete_product or perms.catalog.can_edit_category and perms.catalog.can_edit_description and perms.catalog.can_edit_is_published or user == object.owner %}
 
                                     <a class="btn btn-warning" href="{% url 'catalog:product_edit' object.pk %}"
                                        role="button">Редактировать</a>

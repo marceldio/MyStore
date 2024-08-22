@@ -64,11 +64,16 @@ class ProductUpdateView(UpdateView, LoginRequiredMixin):
 
     def get_form_class(self):
         user = self.request.user
-        if user == self.object.owner:
-            return ProductForm
-        if user.has_perm("catalog.can_edit_category") and user.has_perm("catalog.can_edit_description") and user.has_perm("catalog.can_edit_is_published"):
 
+        if user == self.object.owner or user.has_perm('catalog.change_product') and user.has_perm(
+                'catalog.delete_product'):
+            return ProductForm
+
+        if user.has_perm("catalog.can_edit_category") and user.has_perm(
+                "catalog.can_edit_description") and user.has_perm(
+            "catalog.can_edit_is_published"):
             return ProductModeratorForm
+
         raise PermissionDenied
 
 
@@ -100,8 +105,14 @@ class ProductDetailView(DetailView, LoginRequiredMixin):
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
-        if self.request.user == self.object.owner:
-            self.object.view_counter += 1
-            self.object.save()
-            return self.object
-        raise PermissionDenied
+        self.object.view_counter += 1
+        self.object.save()
+        return self.object
+
+    # def get_object(self, queryset=None):
+    #     self.object = super().get_object(queryset)
+    #     if self.request.user == self.object.owner:
+    #         self.object.view_counter += 1
+    #         self.object.save()
+    #         return self.object
+    #     raise PermissionDenied

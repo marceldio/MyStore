@@ -34,8 +34,9 @@
                                     <a class="btn btn-primary" href="{% url 'blog:blog_detail' object.pk %}"
                                        role="button">Перейти</a>
 
-                                {% if user.is_authenticated %}
+                                {% if perms.blog.change_blog and perms.blog.delete_blog or user == object.owner %}
 
+                                    <!-- Действие, если условия выполняются -->
                                     <a class="btn btn-warning" href="{% url 'blog:blog_edit' object.pk %}"
                                        role="button">Редактировать</a>
                                     <a class="btn btn-danger" href="{% url 'blog:blog_delete' object.pk %}"
