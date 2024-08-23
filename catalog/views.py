@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
@@ -10,6 +11,15 @@ from pytils.translit import slugify
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Version
 
+
+@login_required
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        print(f'You have new message from {name}({email}): {message}')
+    return render(request, 'main/contact.html')
 
 class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
@@ -27,14 +37,6 @@ class ProductCreateView(CreateView, LoginRequiredMixin):
             product.slug = slugify(product.product)
             product.save()
         return super().form_valid(form)
-
-    # def contact(request):
-    #     if request.method == 'POST':
-    #         name = request.POST.get('name')
-    #         tel = request.POST.get('tel')
-    #         message = request.POST.get('message')
-    #         print(f'You have new message from {name}({tel}): {message}')
-    #     return render(request, 'main/contact.html')
 
 
 class ProductUpdateView(UpdateView, LoginRequiredMixin):
