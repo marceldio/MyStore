@@ -25,6 +25,9 @@
 
 
     <style>
+        .header {
+        z-index:1;
+        }
         .bd-placeholder-img {
           font-size: 1.125rem;
           text-anchor: middle;
@@ -172,13 +175,12 @@
         </li>
     </ul>
 </div>
-
-<header data-bs-theme="dark">
-    {% include 'main/includes/inc_menu.html'%}
-</header>
-
+<div class="dropdown position-fixed col-lg-12 header">
+    <header data-bs-theme="dark">
+        {% include 'main/includes/inc_menu.html'%}
+    </header>
+</div>
 <main>
-
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
