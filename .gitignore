@@ -164,3 +164,4 @@ cython_debug/
 /media/blog/
 /media/catalog/
 /media/users/
+.env
