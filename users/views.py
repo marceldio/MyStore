@@ -54,9 +54,9 @@ def generate_random_password(length=10):
 
 
 def reset_password(request):
-    context = {
-        'success_message': 'Пароль успешно сброшен на email'
-    }
+    # context = {
+    #     'success_message': 'Пароль успешно сброшен на email'
+    # }
     if request.method == 'POST':
         email = request.POST.get('email')
 

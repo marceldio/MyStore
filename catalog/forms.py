@@ -2,14 +2,12 @@ from django import forms
 from django.forms import ModelForm
 from catalog.models import Product, Version
 
-
 # class StyleForMixin:
 #     def __init__(self, *args, **kwargs):
 #         super().__init__(*args, **kwargs)
 #
 #         for field_name, field in self.fields.items():
 #             field.widget.attrs['class'] = 'form-control'
-
 
 
 class ProductModeratorForm(ModelForm):
@@ -21,12 +19,11 @@ class ProductModeratorForm(ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        exclude = ('views_counter','owner', 'is_published')
+        exclude = ('views_counter', 'owner', 'is_published')
 
     # Список запрещенных слов
     forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно',
                        'обман', 'полиция', 'радар']
-
 
     def clean_name(self):
         name = self.cleaned_data.get('product')

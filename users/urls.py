@@ -14,4 +14,3 @@ urlpatterns = [
     path('reset-password/', reset_password, name='reset_password'),
     path("email-confirm/<str:token>/", email_verification, name='email_confirm')
     ]
-
