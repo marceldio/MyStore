@@ -69,8 +69,8 @@ def reset_password(request):
         send_mail(
             'Восстановление пароля',
             f'Ваш новый пароль: {new_password}',
-            from_email = EMAIL_HOST_USER,
-            recipient_list = [user.email]
+            from_email=EMAIL_HOST_USER,
+            recipient_list=[user.email]
         )
 
         return redirect(reverse('users:login'))

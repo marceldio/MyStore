@@ -2,8 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
-from django.http import HttpResponseForbidden
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from pytils.translit import slugify
@@ -21,6 +20,7 @@ def contact(request):
         message = request.POST.get('message')
         print(f'You have new message from {name}({email}): {message}')
     return render(request, 'main/contact.html')
+
 
 class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
@@ -50,11 +50,11 @@ class ProductUpdateView(UpdateView, LoginRequiredMixin):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+        versionformset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
         if self.request.method == 'POST':
-            context_data['formset'] = VersionFormset(self.request.POST, instance=self.object)
+            context_data['formset'] = versionformset(self.request.POST, instance=self.object)
         else:
-            context_data['formset'] = VersionFormset(instance=self.object)
+            context_data['formset'] = versionformset(instance=self.object)
         return context_data
 
     def form_valid(self, form):
@@ -74,7 +74,7 @@ class ProductUpdateView(UpdateView, LoginRequiredMixin):
 
         if user.has_perm("catalog.can_edit_category") and user.has_perm(
             "catalog.can_edit_description") and user.has_perm(
-            "catalog.can_edit_is_published"):
+                "catalog.can_edit_is_published"):
             return ProductModeratorForm
 
         raise PermissionDenied
@@ -88,10 +88,10 @@ class ProductDeleteView(DeleteView, LoginRequiredMixin):
     def get_success_url(self):
         return reverse('catalog:product_list')
 
+
 class ProductListView(ListView):
     model = Product
     template_name = ('main/product_list.html')
-
 
     def get_queryset(self):
         return get_products_from_cache()
