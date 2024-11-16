@@ -1,5 +1,5 @@
 Example of an online store by Marcel Dio
-# my store
+# My Store
 Пример интернет-магазина. 
 
 Используется брокер для кеширования Redis.
