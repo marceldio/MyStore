@@ -116,11 +116,3 @@ class ProductDetailView(DetailView, LoginRequiredMixin):
         self.object.view_counter += 1
         self.object.save()
         return self.object
-
-    # def get_object(self, queryset=None):
-    #     self.object = super().get_object(queryset)
-    #     if self.request.user == self.object.owner:
-    #         self.object.view_counter += 1
-    #         self.object.save()
-    #         return self.object
-    #     raise PermissionDenied
